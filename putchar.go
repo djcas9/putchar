@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/codegangsta/cli"
 	"github.com/mephux/putchar/lib"
 	"os"
@@ -14,10 +13,9 @@ func main() {
 	app.Usage = "Print Characters From Anything."
 	app.Version = putchar.VERSION
 	app.Commands = []cli.Command{
-		putchar.ReadCommand(),
+		putchar.ReadFileCommand(),
+		putchar.ReadInCommand(),
 	}
-
-	fmt.Println("HELLO")
 
 	app.Run(os.Args)
 }

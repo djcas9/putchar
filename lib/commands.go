@@ -4,12 +4,22 @@ import (
 	"github.com/codegangsta/cli"
 )
 
-func ReadCommand() cli.Command {
+func ReadFileCommand() cli.Command {
 	return cli.Command{
-		Name:        "add",
-		ShortName:   "a",
-		Usage:       "Add a git repository to your gill store.",
-		Description: "Example: gill add https://github.com/mephux/gill.git",
-		Action:      Read,
+		Name:        "file",
+		ShortName:   "f",
+		Usage:       "Read strings from file.",
+		Description: "Example: putchar file /path/to/bin",
+		Action:      ReadFile,
+	}
+}
+
+func ReadInCommand() cli.Command {
+	return cli.Command{
+		Name:        "stdin",
+		ShortName:   "-",
+		Usage:       "Read strings from standard input.",
+		Description: "Example: cat /path/to/bin | putchar -",
+		Action:      ReadIn,
 	}
 }
