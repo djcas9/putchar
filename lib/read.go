@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"unicode"
+	"unicode/utf8"
 )
 
 func hasArgs(args []string, expected int) bool {
@@ -47,22 +48,20 @@ func ReadFile(c *cli.Context) {
 	}()
 
 	scanner := bufio.NewScanner(file)
-	scanner.Split(bufio.ScanBytes)
+	scanner.Split(bufio.ScanRunes)
 
 	for scanner.Scan() {
-		b := scanner.Bytes()[0]
-		//         fmt.Println(string(b))
-		data := []rune(string(b))
+		b := scanner.Bytes()
+		r, _ := utf8.DecodeRune(b)
 
-		fmt.Println(data)
-
-		for i := 0; i < len(data); i++ {
-			test := unicode.IsPrint(data[i])
+		if utf8.ValidRune(r) {
+			test := unicode.IsPrint(r)
 
 			if test {
-				fmt.Print("DEBUG: ", data[i], " ", string(data[i]), " \n")
+				fmt.Print("DEBUG: ", r, " ", string(r), " \n")
+			} else {
+				fmt.Println(r)
 			}
-
 		}
 
 	}
